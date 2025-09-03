@@ -74,7 +74,8 @@
         }
         
         #cardContainer{
-            width:900px; 
+            width:90%; 
+            max-width: 1000px;
             aspect-ratio: 1/0.7;
             perspective:1500px; 
             position:relative; 
@@ -205,17 +206,17 @@
             height: 20%;
             align-items: baseline;
         }
-        #cream{
+        .cream{
             height: 40%;
             width: 10%;
             border-radius: 50%;
             background-color: #ffffff;
         }
-        #candle{
+        .candle{
             height: 100%;
             width: 10%; 
         }
-        #wax{
+        .wax{
             background-color: #ed4949;
             height: 70%;
             background: repeating-linear-gradient(
@@ -223,7 +224,7 @@
                 #fc95c0 15% 30% 
             );
         }
-        #fire{
+        .fire{
             background-color: #ffc337;
             height: 30%;
             width: 80%;
@@ -233,6 +234,11 @@
             margin: auto;
         }
         @keyframes flicker {
+            0%   { transform: scale(1) rotate(-2deg); opacity: 0.9; }
+            50%  { transform: scale(1.1) rotate(2deg); opacity: 1; }
+            100% { transform: scale(0.95) rotate(-1deg); opacity: 0.85; }
+        }
+        @-webkit-keyframes flicker {
             0%   { transform: scale(1) rotate(-2deg); opacity: 0.9; }
             50%  { transform: scale(1.1) rotate(2deg); opacity: 1; }
             100% { transform: scale(0.95) rotate(-1deg); opacity: 0.85; }
@@ -272,6 +278,18 @@
         }
 
         @keyframes glow {
+            0%   { filter: drop-shadow(0 0 2px #ffcde9) drop-shadow(0 0 5px #fb9acf) drop-shadow(0 0 2px #ffcde9); }
+            50%  { filter: drop-shadow(0 0 4px #ffcde9) drop-shadow(0 0 10px #fb9acf) drop-shadow(0 0 4px #ffcde9); }
+            100% { filter: drop-shadow(0 0 2px #ffcde9) drop-shadow(0 0 5px #fb9acf) drop-shadow(0 0 2px #ffcde9); }
+        }
+
+        @-webkit-keyframes heartbeat {
+            0% {transform: rotate(-45deg) scale(0.7);}
+            50% {transform: rotate(-45deg) scale(1);}
+            100% {transform: rotate(-45deg) scale(0.7);}
+        }
+
+        @-webkit-keyframes glow {
             0%   { filter: drop-shadow(0 0 2px #ffcde9) drop-shadow(0 0 5px #fb9acf) drop-shadow(0 0 2px #ffcde9); }
             50%  { filter: drop-shadow(0 0 4px #ffcde9) drop-shadow(0 0 10px #fb9acf) drop-shadow(0 0 4px #ffcde9); }
             100% { filter: drop-shadow(0 0 2px #ffcde9) drop-shadow(0 0 5px #fb9acf) drop-shadow(0 0 2px #ffcde9); }
@@ -343,7 +361,7 @@
             const generateBtn = document.getElementById('generateButton');
             const openBtn = document.getElementById('openButton');
 
-            const cakeDeco = '<div class="cake-deco"><div id="top"><div id="cream"></div><div id="candle"><div id="fire"></div><div id="wax"></div></div><div id="cream"></div><div id="candle"><div id="fire"></div><div id="wax"></div></div><div id="cream"></div><div id="candle"><div id="fire"></div><div id="wax"></div></div><div id="cream"></div></div><div id="cake-layer-3"><div id="cream-1"></div></div><div id="cake-layer-2"></div><div id="cake-layer-1"></div></div>';
+            const cakeDeco = '<div class="cake-deco"><div id="top"><div class="cream"></div><div class="candle"><div class="fire"></div><div class="wax"></div></div><div class="cream"></div><div class="candle"><div class="fire"></div><div class="wax"></div></div><div class="cream"></div><div class="candle"><div class="fire"></div><div class="wax"></div></div><div class="cream"></div></div><div id="cake-layer-3"><div id="cream-1"></div></div><div id="cake-layer-2"></div><div id="cake-layer-1"></div></div>';
             const heartDeco = '<div class="heart-deco"></div>';
 
             function fillCard(data){
