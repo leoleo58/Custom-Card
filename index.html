@@ -291,9 +291,9 @@
                 <label>
                     Decoration: 
                     <select id="decoInput">
-                    <option value="cake">Cake</option>
-                    <option value="heart">Heart</option>
-                </select>
+                        <option value="cake">Cake</option>
+                        <option value="heart">Heart</option>
+                    </select>
                 </label>
                 <button id="generateButton">Generate Card</button>
                 <p id="linkOutput"></p>
@@ -331,7 +331,7 @@
             const wishes = document.getElementById('wishes');    
             const cardContainer = document.getElementById('cardContainer'); 
             const card = document.getElementById('card');            
-            let currentCardData = null;                             
+            let currentCardData = null;                              
 
             const titleInput = document.getElementById('titleInput');
             const nameInput = document.getElementById('cardRecipient');
@@ -381,12 +381,6 @@
                     cardColor: cardColor.value,
                     textColor: textColor.value,
                     deco: decorationInput.value,
-                    effects:{
-                        confetti: confettibox.checked,
-                        hearts: heartbox.checked,
-                        flowers: flowerbox.checked,
-                        glitter: glitterbox.checked
-                    }
                 };
                 fillCard(data);
             }
@@ -399,7 +393,6 @@
         
             decorationInput.addEventListener('change', () => {
                 updatePreview();
-                // Force immediate decoration update
                 const decor = decorationInput.value;
                 if (decor === 'cake') {
                     decoration.innerHTML = cakeDeco;
@@ -416,12 +409,6 @@
                     cardColor: cardColor.value,
                     textColor: textColor.value,
                     deco: decorationInput.value,
-                    effects:{
-                    confetti: confettibox.checked,
-                    hearts: heartbox.checked,
-                    flowers: flowerbox.checked,
-                    glitter: glitterbox.checked
-                    }
                 };
                 const encoded = btoa(JSON.stringify(data));
                 const link = window.location.href.split('?')[0] + '?data=' + encoded;
