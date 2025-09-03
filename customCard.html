@@ -1,0 +1,467 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Card Generator</title>
+    <style>
+        body{
+            display: flex;
+            margin: 0;
+            font-family: 'Comic Sans MS', cursive, sans-serif;
+            overflow-x:hidden;
+            position: relative;
+            flex-direction: column;
+            background: #fff0f5;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+        }
+        button{
+            font-size: 15px;
+            border-radius: 10px;
+            padding:10px;
+            background:#ff69b4; 
+            color:white;
+            border: 1px solid #fb8fc5;
+        }
+        #mainContainer{
+            display: flex;
+            gap: 30px;
+            width: 100%;
+            max-width: 1200px;
+            align-items: center;
+            justify-content: center;
+        }
+        #title{
+            font-size: 25px;
+            color: #bc1c6f;
+            padding: 10px;
+            font-weight: 600;
+        }
+        #formContainer{
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            text-align: center;
+            align-items: center;
+            margin:10px;
+            padding: 20px;
+            background-color: #ffdbed;
+            color:#821866;
+            border-radius: 15px;
+            font-size: 15px;
+            width: 40%;
+            gap: 15px;
+        }
+        input[type="color"]{
+            border-radius: 5px;
+            border: 1px solid #d9ace2;
+        }
+        input[type="checkbox"]{
+            margin: 8px;
+            padding: 10px;
+            width: auto;
+            border: 1px solid #d9ace2;
+        }
+        input[type="text"], textarea, select{
+            border-radius: 5px;
+            border: 1px solid #d9ace2;
+            font-size: 15px;
+            padding: 10px;
+            width: 90%;
+            color:#821866;
+        }
+        
+        #cardContainer{
+            width:900px; 
+            aspect-ratio: 1/0.7;
+            perspective:1500px; 
+            position:relative; 
+            z-index:1; 
+        }
+        .card{
+            width: 100%;
+            height: 100%;
+            position: relative;
+            transform-style: preserve-3d;
+            transition: transform 0.2s;
+            box-shadow: 0 8px 25px rgba(0,0,0,0.15);
+        }
+        .front{
+            width: 100%;
+            height: 100%;
+            display: flex;
+            background:#fbdafe;
+            box-shadow:0 2px 7px rgba(0,0,0,0.3);
+            justify-content:center; 
+            align-items:center; 
+            flex-direction:column;
+            position:absolute; 
+            backface-visibility:hidden; 
+            z-index:3;
+            transition: transform 1.5s cubic-bezier(0.4, 0, 0.2, 1);
+            transform-origin: left center;
+        }
+        #openButton{
+            cursor: pointer; 
+            font-weight: bold; 
+            margin-top: 15px; 
+            padding: 10px; 
+            border: 2px dashed; 
+            border-radius: 10px; 
+            text-align: center;
+        }
+        #openButton:hover{
+            border: 2px solid;
+        }
+        .cardinside{
+            width: 100%;
+            height: 100%;
+            display: flex;
+            transform-style:preserve-3d;
+            transition: transform 1s;
+        }
+        .left{
+            width: 50%;
+            height: 100%;
+            display: flex;
+            position:relative; 
+            overflow:hidden;
+            display:flex; 
+            justify-content:center; 
+            align-items:center; 
+            flex-direction:column;
+            background:#fff0f5;
+        }
+        .right{
+            width: 50%;
+            height: 100%;
+            display: flex;
+            position:relative; 
+            overflow:hidden;
+            display:flex; 
+            justify-content:center; 
+            align-items:center; 
+            text-align: center;
+            flex-direction:column;
+            background:#fff0f5;
+        }
+        
+        .decoContainer{
+            width: 80%; 
+            height:70%; 
+            position:relative; 
+            display:flex; 
+            justify-content:center; 
+            align-items:center; 
+            overflow:hidden; 
+            transition: transform 0.2s; 
+        }
+        
+        .cake-deco{
+            display:flex; 
+            width:90%; 
+            height: 80%; 
+            flex-direction: column;
+            position: relative;
+            align-items:center; 
+            justify-content:center; 
+        }
+        #cake-layer-1 ,#cake-layer-2, #cake-layer-3, #cream-1{
+            border-radius: 10% 10% 0 0;
+        }
+        #cake-layer-1{
+            background-color: #73b0ed;
+            height: 25%;
+            width: 80%;
+            position: relative;
+        }
+        #cake-layer-2{
+            height: 25%;
+            width: 70%;
+            background: linear-gradient(
+                #815149 35%,   
+                #ffffff 35%,  
+                #ffffff 65%,  
+                #815149 65%   
+            );
+        }
+        #cake-layer-3{
+            background-color: #fa9a9a;
+            height: 20%;
+            width: 60%;
+        }
+        #cream-1{
+            height: 100%;
+            background-size: 24% 200%;
+            background-position: 0 60%;
+            background-image: radial-gradient(circle at 50% 25%, #ffffff 32%, transparent 10%);
+        }
+        #top{
+            display: flex;
+            justify-content: space-around;
+            width: 60%;
+            height: 20%;
+            align-items: baseline;
+        }
+        #cream{
+            height: 40%;
+            width: 10%;
+            border-radius: 50%;
+            background-color: #ffffff;
+        }
+        #candle{
+            height: 100%;
+            width: 10%; 
+        }
+        #wax{
+            background-color: #ed4949;
+            height: 70%;
+            background: repeating-linear-gradient(
+                45deg, #ed4949 0 15%,  
+                #fc95c0 15% 30% 
+            );
+        }
+        #fire{
+            background-color: #ffc337;
+            height: 30%;
+            width: 80%;
+            border-radius: 60% 60% 40% 40%;
+            animation: flicker 0.6s infinite alternate;
+            animation-delay: 2s;
+            margin: auto;
+        }
+        @keyframes flicker {
+            0%   { transform: scale(1) rotate(-2deg); opacity: 0.9; }
+            50%  { transform: scale(1.1) rotate(2deg); opacity: 1; }
+            100% { transform: scale(0.95) rotate(-1deg); opacity: 0.85; }
+        }
+
+        .heart-deco{
+            width: 50%;
+            height: auto;
+            aspect-ratio: 1/1;
+            background-color: #ff77c2;
+            transform: rotate(-45deg);
+            border-radius: 5%;
+            animation-delay: 2s;
+            animation: heartbeat 1s infinite, glow 1s infinite alternate;
+        }
+        .heart-deco::before, .heart-deco::after{
+            content: "";
+            position: absolute;
+            background-color: #ff77c2;
+            border-radius: 50%;
+            width: 100%;
+            height: 100%;
+        }
+        .heart-deco::before{
+            top:-50%;
+            left:0;
+        }
+        .heart-deco::after{
+            top:0;
+            left:50%;
+        }
+
+        @keyframes heartbeat {
+            0% {transform: rotate(-45deg) scale(0.7);}
+            50% {transform: rotate(-45deg) scale(1);}
+            100% {transform: rotate(-45deg) scale(0.7);}
+        }
+
+        @keyframes glow {
+            0%   { filter: drop-shadow(0 0 2px #ffcde9) drop-shadow(0 0 5px #fb9acf) drop-shadow(0 0 2px #ffcde9); }
+            50%  { filter: drop-shadow(0 0 4px #ffcde9) drop-shadow(0 0 10px #fb9acf) drop-shadow(0 0 4px #ffcde9); }
+            100% { filter: drop-shadow(0 0 2px #ffcde9) drop-shadow(0 0 5px #fb9acf) drop-shadow(0 0 2px #ffcde9); }
+        }
+
+    </style>
+    </head>
+    <body>
+        <div id="mainContainer">
+            <div id="formContainer">
+                <label id="title">Custom Card Generator</label>
+                <input type="text" id="titleInput" placeholder="Happy Birthday!">
+                <input type="text" id="cardRecipient" placeholder="Card Recipient">
+                <textarea type="text" id="wishesInput" placeholder="Wish you all the best"></textarea>
+                <label> Text Color: <input type="color" id="textColorInput" value="#ff80bf"></label>
+                <label> Card Color: <input type="color" id="cardColorInput" value="#fbdafe"></label>
+                <label>
+                    Decoration: 
+                    <select id="decoInput">
+                    <option value="cake">Cake</option>
+                    <option value="heart">Heart</option>
+                </select>
+                </label>
+                <button id="generateButton">Generate Card</button>
+                <p id="linkOutput"></p>
+            </div>
+
+            <div id="cardContainer">
+                <div class="card" id="card">
+                    <div class="front" id="front">
+                        <h2 id="frontTitle">Card Title</h2>
+                        <h3 id="frontName">For Receiver</h3>
+                        <div id="openButton">Click to open</div>
+                    </div>
+                    <div class="cardinside" id="cardInside">
+                        <div class="left" id="leftPage">
+                            <div class="decoContainer" id="cardDecoration">
+                            </div>
+                        </div>
+                        <div class="right" id="rightPage">
+                            <h1 id="insideTitle">Card Title</h1>
+                            <h2 id="insideName">For Receiver</h2>
+                            <p id="wishes">Your wishes will appear here...</>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div id="sparkles"></div>
+
+        <script>
+            const front = document.getElementById('front');           
+            const cardInside = document.getElementById('cardInside'); 
+            const leftPage = document.getElementById('leftPage');     
+            const rightPage = document.getElementById('rightPage');   
+            const decoration = document.getElementById('cardDecoration');
+            const wishes = document.getElementById('wishes');    
+            const cardContainer = document.getElementById('cardContainer'); 
+            const card = document.getElementById('card');            
+            let currentCardData = null;                             
+
+            const titleInput = document.getElementById('titleInput');
+            const nameInput = document.getElementById('cardRecipient');
+            const wishesInput = document.getElementById('wishesInput');
+            const textColor = document.getElementById('textColorInput');
+            const cardColor = document.getElementById('cardColorInput');
+            const decorationInput = document.getElementById('decoInput');
+
+            const generateBtn = document.getElementById('generateButton');
+            const openBtn = document.getElementById('openButton');
+
+            const cakeDeco = '<div class="cake-deco"><div id="top"><div id="cream"></div><div id="candle"><div id="fire"></div><div id="wax"></div></div><div id="cream"></div><div id="candle"><div id="fire"></div><div id="wax"></div></div><div id="cream"></div><div id="candle"><div id="fire"></div><div id="wax"></div></div><div id="cream"></div></div><div id="cake-layer-3"><div id="cream-1"></div></div><div id="cake-layer-2"></div><div id="cake-layer-1"></div></div>';
+            const heartDeco = '<div class="heart-deco"></div>';
+
+            function fillCard(data){
+                currentCardData = data;
+
+                front.style.background = data.cardColor;
+                leftPage.style.background = data.cardColor;
+                rightPage.style.background = data.cardColor;
+
+                front.style.color=data.textColor;
+                leftPage.style.color=data.textColor;
+                rightPage.style.color=data.textColor;
+                openBtn.style.color=data.textColor;
+                openBtn.style.borderColor=data.textColor;
+
+                document.getElementById('frontTitle').textContent = data.title || 'Card Title';
+                document.getElementById('frontName').textContent = 'For ' + (data.name || 'Receiver');
+                document.getElementById('insideTitle').textContent = data.title || 'Card Title';
+                document.getElementById('insideName').textContent = 'For ' + (data.name || 'Receiver');
+                wishes.textContent = data.wish || 'Your wishes will appear here...';
+  
+                decoration.innerHTML = '';
+                if (data.deco === 'cake') {
+                    decoration.innerHTML = cakeDeco;
+                } else if (data.deco === 'heart') {
+                    decoration.innerHTML = heartDeco;
+                }
+            }
+
+            function updatePreview(){
+                const data = {
+                    title: titleInput.value,
+                    name: nameInput.value,
+                    wish: wishesInput.value,
+                    cardColor: cardColor.value,
+                    textColor: textColor.value,
+                    deco: decorationInput.value,
+                    effects:{
+                        confetti: confettibox.checked,
+                        hearts: heartbox.checked,
+                        flowers: flowerbox.checked,
+                        glitter: glitterbox.checked
+                    }
+                };
+                fillCard(data);
+            }
+
+            titleInput.addEventListener('input', updatePreview);
+            nameInput.addEventListener('input', updatePreview);
+            wishesInput.addEventListener('input', updatePreview);
+            cardColor.addEventListener('input', updatePreview);
+            textColor.addEventListener('input', updatePreview);
+        
+            decorationInput.addEventListener('change', () => {
+                updatePreview();
+                // Force immediate decoration update
+                const decor = decorationInput.value;
+                if (decor === 'cake') {
+                    decoration.innerHTML = cakeDeco;
+                } else if (decor === 'heart') {
+                    decoration.innerHTML = heartDeco;
+                }
+            });
+
+            generateBtn.addEventListener('click', () => {
+                const data = {
+                    title: titleInput.value,
+                    name: nameInput.value,
+                    wish: wishesInput.value,
+                    cardColor: cardColor.value,
+                    textColor: textColor.value,
+                    deco: decorationInput.value,
+                    effects:{
+                    confetti: confettibox.checked,
+                    hearts: heartbox.checked,
+                    flowers: flowerbox.checked,
+                    glitter: glitterbox.checked
+                    }
+                };
+                const encoded = btoa(JSON.stringify(data));
+                const link = window.location.href.split('?')[0] + '?data=' + encoded;
+                document.getElementById('linkOutput').innerHTML = `<a href="${link}" target="_blank">Shareable E-Card Link</a>`;
+            });
+
+            openBtn.addEventListener('click', () => {
+                front.style.transform = 'rotateY(-120deg)';
+                cardInside.style.transform='rotateY(0deg)';
+            });
+
+            function closeCard(){
+                front.style.transform='rotateY(0deg)';
+                cardInside.style.transform='rotateY(0deg)';
+            }
+
+            leftPage.addEventListener('click', closeCard);
+            rightPage.addEventListener('click', closeCard);
+
+            function starteffects(){
+                if(effectInterval) clearInterval(effectInterval);
+
+                if(!currentCardData || !currentCardData.effects) return;
+            }
+
+            function loadURL(){
+                const params = new URLSearchParams(window.location.search);
+                if(params.has('data')){
+                    const data = JSON.parse(atob(params.get('data')));
+                    fillCard(data);
+                    document.getElementById('formContainer').style.display='none';
+                    document.querySelector('.mainContainer').style.justifyItem = 'center';
+                    cardContainer.style.display='block';
+                }
+            }
+
+            loadURL();
+
+            updatePreview();
+    
+        </script>
+    </body>
+</html>
