@@ -92,7 +92,7 @@
         .front{
             width: 100%;
             height: 100%;
-            display: flex;
+            display: none;
             background:#fbdafe;
             box-shadow:0 2px 7px rgba(0,0,0,0.3);
             justify-content:center; 
@@ -151,7 +151,7 @@
         
         .decoContainer{
             width: 80%; 
-            height:70%; 
+            height:80%; 
             position:relative; 
             display:flex; 
             justify-content:center; 
@@ -237,11 +237,6 @@
             50%  { transform: scale(1.1) rotate(2deg); opacity: 1; }
             100% { transform: scale(0.95) rotate(-1deg); opacity: 0.85; }
         }
-        @-webkit-keyframes flicker {
-            0%   { transform: scale(1) rotate(-2deg); opacity: 0.9; }
-            50%  { transform: scale(1.1) rotate(2deg); opacity: 1; }
-            100% { transform: scale(0.95) rotate(-1deg); opacity: 0.85; }
-        }
 
         .heart-deco{
             width: 50%;
@@ -281,19 +276,107 @@
             100% { filter: drop-shadow(0 0 2px #ffcde9) drop-shadow(0 0 5px #fb9acf) drop-shadow(0 0 2px #ffcde9); }
         }
 
-        @-webkit-keyframes heartbeat {
-            0% {transform: rotate(-45deg) scale(0.7);}
-            50% {transform: rotate(-45deg) scale(1);}
-            100% {transform: rotate(-45deg) scale(0.7);}
+        .tree-deco {
+            position: relative;
+            display: flex;
+            width: 100%;
+            height: 100%;
+            align-items: center;
+            flex-direction: column;
+            justify-content: center;
+        }
+        .tree-star{
+            width: 30%;
+            aspect-ratio: 1 / 1 ;
+            background: #fdd543;
+            clip-path: polygon(50% 0%, 61% 35%, 98% 35%, 68% 57%, 79% 91%, 50% 70%, 21% 91%, 32% 57%, 2% 35%, 39% 35%);
+            z-index: 4;
+        }
+        .tree-leaves{
+            position: relative;
+            width: 0;
+            height: 0;
+        }
+        .tree-leaves:nth-child(2){
+            margin-top: -20%;
+            width: 60%;
+            height: 30%;
+            background-color: #2e8b57;
+            clip-path: polygon(50% 0%, 0% 100%, 100% 100%);   
+            z-index: 2;
+        }
+        .tree-leaves:nth-child(3){
+            margin-top: -25%;
+            width: 75%;
+            height: 40%;
+            background-color: #2e8b57;
+            clip-path: polygon(50% 0%, 0% 100%, 100% 100%);
+            z-index: 1;   
+        }
+        .tree-leaves:nth-child(4){
+            margin-top: -30%;
+            width: 100%;
+            height: 50%;
+            background-color: #2e8b57;
+            clip-path: polygon(50% 0%, 0% 100%, 100% 100%);   
+        }
+        .tree-trunk {
+            width: 20%;
+            height: 15%;
+            background: #8b4513;
+            border-radius: 0 0 10% 10%;
+        }
+        .ornament {
+            position: absolute;
+            width: 10%;
+            aspect-ratio: 1/1;
+            border-radius: 50%;
+            z-index: 4;
+            background:red;
+        }
+        .ornament.blue { background: #4aa3ff; }
+        .ornament.gold { background: #ffd700; }
+        .ornament.pink { background: #ff66b2; }
+
+        .light {
+            position: absolute;
+            width: 5%;
+            aspect-ratio: 1/1;
+            border-radius: 50%;
+            background: yellow;
+            box-shadow: 0 0 4px yellow;
+            animation: blink 1s infinite alternate;
+            z-index: 3;
+        }
+        .light.red { background: #ff3333; box-shadow: 0 0 4px #ff3333; animation-delay: 0.2s; }
+        .light.green { background: #00ff88; box-shadow: 0 0 4px #00ff88; animation-delay: 0.4s; }
+        .light.blue { background: #98f5ff; box-shadow: 0 0 4px #98f5ff; animation-delay: 0.6s; }
+
+        @keyframes redGlow {
+            0% {filter: drop-shadow(0 0 2px #ff282879) drop-shadow(0 0 5px #fe9696);}
+            50% {filter: drop-shadow(0 0 4px #ff4040) drop-shadow(0 0 10px #ff6060);}
+            100% {filter: drop-shadow(0 0 2px #ff282879) drop-shadow(0 0 5px #fe9696);}
         }
 
-        @-webkit-keyframes glow {
-            0%   { filter: drop-shadow(0 0 2px #ffcde9) drop-shadow(0 0 5px #fb9acf) drop-shadow(0 0 2px #ffcde9); }
-            50%  { filter: drop-shadow(0 0 4px #ffcde9) drop-shadow(0 0 10px #fb9acf) drop-shadow(0 0 4px #ffcde9); }
-            100% { filter: drop-shadow(0 0 2px #ffcde9) drop-shadow(0 0 5px #fb9acf) drop-shadow(0 0 2px #ffcde9); }
+        @keyframes blueGlow {
+            0%   { filter: drop-shadow(0 0 2px #77aaff79) drop-shadow(0 0 5px #77aaff); }
+            50%  { filter: drop-shadow(0 0 4px #77aaff) drop-shadow(0 0 10px #99ccff); }
+            100% { filter: drop-shadow(0 0 2px #77aaff79) drop-shadow(0 0 5px #77aaff); }
         }
 
-        @media (min-width: 700px) {
+        @keyframes yellowGlow {
+            0%   { filter: drop-shadow(0 0 2px #ffd70079) drop-shadow(0 0 5px #ffd700); }
+            50%  { filter: drop-shadow(0 0 4px #ffd700) drop-shadow(0 0 10px #ffea70); }
+            100% { filter: drop-shadow(0 0 2px #ffd70079) drop-shadow(0 0 5px #ffd700); }
+        }
+
+        @keyframes greenGlow {
+            0%   { filter: drop-shadow(0 0 2px #33ff3379) drop-shadow(0 0 5px #33ff33); }
+            50%  { filter: drop-shadow(0 0 4px #33ff33) drop-shadow(0 0 10px #70ff70); }
+            100% { filter: drop-shadow(0 0 2px #33ff3379) drop-shadow(0 0 5px #33ff33); }
+        }
+
+        @media (min-width: 600px) {
             .fire {
                 animation: flicker 0.6s infinite alternate;
                 animation-delay: 2s;
@@ -302,13 +385,16 @@
                 animation: heartbeat 1s infinite, glow 1s infinite alternate;
                 animation-delay: 2s;
             }
+            .light.red { background: #ff3333; animation: redGlow 1.2s infinite alternate; }
+            .light.blue { background: #77aaff; animation: blueGlow 1.2s infinite alternate; }
+            .light { background: #ffd700; animation: yellowGlow 1.2s infinite alternate; }
+            .light.green { background: #33ff33; animation: greenGlow 1.2s infinite alternate; }
         }
-        @media (max-width: 699px) {
-            .fire, .heart-deco {
+        @media (max-width: 599px) {
+            .fire, .heart-deco, .light, .light.green, .light.blue , .light.red {
                 animation: none !important;
             }
         }
-
 
     </style>
     </head>
@@ -326,6 +412,7 @@
                     <select id="decoInput">
                         <option value="cake">Cake</option>
                         <option value="heart">Heart</option>
+                        <option value="christmas-tree">Christmas Tree</option>
                     </select>
                 </label>
                 <button id="generateButton">Generate Card</button>
@@ -341,8 +428,7 @@
                     </div>
                     <div class="cardinside" id="cardInside">
                         <div class="left" id="leftPage">
-                            <div class="decoContainer" id="cardDecoration">
-                            </div>
+                            <div class="decoContainer" id="cardDecoration"></div>
                         </div>
                         <div class="right" id="rightPage">
                             <h1 id="insideTitle">Card Title</h1>
@@ -376,8 +462,67 @@
             const generateBtn = document.getElementById('generateButton');
             const openBtn = document.getElementById('openButton');
 
-            const cakeDeco = '<div class="cake-deco"><div id="top"><div class="cream"></div><div class="candle"><div class="fire"></div><div class="wax"></div></div><div class="cream"></div><div class="candle"><div class="fire"></div><div class="wax"></div></div><div class="cream"></div><div class="candle"><div class="fire"></div><div class="wax"></div></div><div class="cream"></div></div><div id="cake-layer-3"><div id="cream-1"></div></div><div id="cake-layer-2"></div><div id="cake-layer-1"></div></div>';
+            const cakeDeco = `<div class="cake-deco">
+                                    <div id="top"><div class="cream"></div>
+                                        <div class="candle">
+                                            <div class="fire"></div>
+                                            <div class="wax"></div>
+                                            </div>
+                                        <div class="cream"></div>
+                                        <div class="candle">
+                                            <div class="fire"></div>
+                                            <div class="wax"></div>
+                                        </div>
+                                        <div class="cream"></div>
+                                        <div class="candle">
+                                            <div class="fire"></div>
+                                            <div class="wax"></div>
+                                            </div>
+                                        <div class="cream"></div>
+                                    </div>
+                                    <div id="cake-layer-3">
+                                        <div id="cream-1"></div>
+                                    </div>
+                                    <div id="cake-layer-2"></div>
+                                    <div id="cake-layer-1"></div>
+                                </div>`;
             const heartDeco = '<div class="heart-deco"></div>';
+            const christmasTreeDeco = `<div class="tree-deco">
+                                            <div class="tree-star"></div>
+                                            <div class="tree-leaves">
+                                                <div class="ornament pink" style="top:40%; left:30%;"></div>
+                                                <div class="ornament" style="top:50%; left:65%;"></div>
+                                                <div class="ornament gold" style="top:80%; left:15%;"></div>
+                                                <div class="ornament blue" style="top:80%; left:60%;"></div>
+                                                <div class="light" style="top:50%; left:50%;"></div>
+                                                <div class="light green" style="top:75%; left:75%;"></div>
+                                                <div class="light red" style="top:80%; left:40%;"></div>
+                                            </div>
+                                            <div class="tree-leaves">
+                                                <div class="ornament blue" style="top:53%; left:35%;"></div>
+                                                <div class="ornament gold" style="top:50%; left:65%;"></div>
+                                                <div class="ornament" style="top:70%; left:20%;"></div>
+                                                <div class="ornament pink" style="top:85%; left:60%;"></div>
+                                                <div class="light" style="top:55%; left:54%;"></div>
+                                                <div class="light blue" style="top:80%; left:40%;"></div>
+                                                <div class="light red" style="top:75%; left:80%;"></div>
+                                            </div>
+                                            <div class="tree-leaves">
+                                                <div class="ornament blue" style="top:50%; left:57%;"></div>
+                                                <div class="ornament gold" style="top:50%; left:27%;"></div>
+                                                <div class="ornament gold" style="top:65%; left:75%;"></div>
+                                                <div class="ornament" style="top:80%; left:55%;"></div>
+                                                <div class="ornament pink" style="top:80%; left:15%;"></div>
+                                                <div class="light" style="top:75%; left:30%;"></div>
+                                                <div class="light blue" style="top:50%; left:40%;"></div>
+                                                <div class="light" style="top:64%; left:50%;"></div>
+                                                <div class="light green" style="top:55%; left:70%;"></div>
+                                                <div class="light red" style="top:85%; left:85%;"></div>
+                                                <div class="light green" style="top:80%; left:70%;"></div>
+                                                <div class="light blue" style="top:87%; left:43%;"></div>
+                                            </div>
+                                            <div class="tree-trunk"></div>
+                                        </div>`
 
             function fillCard(data){
                 currentCardData = data;
@@ -403,6 +548,8 @@
                     decoration.innerHTML = cakeDeco;
                 } else if (data.deco === 'heart') {
                     decoration.innerHTML = heartDeco;
+                } else if (data.deco === 'christmas-tree') {
+                    decoration.innerHTML = christmasTreeDeco;
                 }
             }
 
@@ -431,6 +578,8 @@
                     decoration.innerHTML = cakeDeco;
                 } else if (decor === 'heart') {
                     decoration.innerHTML = heartDeco;
+                } else if (data.deco === 'christmas-tree') {
+                    decoration.innerHTML = christmasTreeDeco;
                 }
             });
 
